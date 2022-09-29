@@ -1,0 +1,5 @@
+<span>
+
+    {{$balance}}
+
+</span>

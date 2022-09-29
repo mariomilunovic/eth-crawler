@@ -1,0 +1,320 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* hidding alpine.js components on refresh */
+[x-cloak] {
+    display: none !important;
+}
+
+/* adding custom text shadow tags */
+@layer utilities {
+    @variants responsive {
+        .text-shadow {
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .text-shadow-sm {
+            text-shadow: 0 2px 2px rgba(0, 0, 0, 0.11),
+                0 1px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        .text-shadow-md {
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.11),
+                0 1px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        .text-shadow-lg {
+            text-shadow: 0 15px 30px rgba(0, 0, 0, 0.11),
+                0 5px 15px rgba(0, 0, 0, 0.6);
+        }
+
+        .text-shadow-none {
+            text-shadow: none;
+        }
+    }
+}
+
+/* CSS Grid page layout */
+/* Layout for large screens */
+@media only screen and (min-width: 750px) {
+    #container {
+        display: grid;
+        grid-template-columns: 1fr 7fr;
+        /* grid-template-rows: 1fr 10fr 1fr; */
+        grid-template-rows: auto 10fr auto;
+        grid-auto-columns: 1fr;
+        grid-gap: 0.5rem;
+        max-width: 100vw;
+        min-height: 100vh;
+        margin: 0.5rem;
+        grid-template-areas:
+            "logo header"
+            "navbar main"
+            "footer footer";
+    }
+}
+
+/* Layout for small screens */
+@media only screen and (max-width: 750px) {
+    #container {
+        display: grid;
+        grid-template-columns: 1fr 7fr;
+        /* grid-template-rows: 1fr 1fr 10fr 1fr; */
+        grid-template-rows: auto auto 10fr auto;
+        grid-auto-columns: 1fr;
+        grid-gap: 0.5rem;
+        max-width: 100vw;
+        min-height: 100vh;
+        margin: 0.5rem;
+        grid-template-areas:
+            "logo header"
+            "navbar navbar"
+            "main main"
+            "footer footer";
+    }
+}
+
+#logo {
+    grid-area: logo;
+}
+
+header {
+    grid-area: header;
+}
+
+nav {
+    grid-area: navbar;
+}
+
+main {
+    grid-area: main;
+}
+
+footer {
+    grid-area: footer;
+}
+
+/* My custom classes */
+
+.card {
+    @apply flex rounded-sm shadow-sm;
+}
+
+.card-horizontal {
+    @apply flex flex-row justify-center items-start rounded-sm shadow-sm;
+}
+
+.card-vertical {
+    @apply flex flex-col rounded-sm shadow-sm;
+}
+
+.menu_item {
+    @apply flex flex-row w-full pl-3 py-2 text-white text-shadow-md font-semibold transition duration-500  hover:bg-neutral-700 hover:cursor-pointer;
+}
+
+.submenu_item {
+    @apply block w-full text-start text-white font-medium pl-12 py-2 hover:bg-neutral-500 hover:cursor-pointer;
+}
+
+.input {
+    @apply p-1 leading-tight text-neutral-700 bg-gray-200 border-2 border-gray-200 rounded focus:outline-none focus:bg-white focus:border-purple-500;
+}
+
+.error {
+    @apply mb-3 px-1 text-sm font-bold text-red-500;
+}
+
+.label {
+    @apply block font-semibold text-neutral-700 mt-2;
+}
+
+/* Buttons */
+
+.btn-green {
+    @apply text-white px-3 bg-green-700 hover:bg-green-800 focus:ring-2 focus:ring-green-300 font-medium rounded-md text-sm py-1 text-center mr-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 inline-flex items-center;
+}
+
+.btn-blue {
+    @apply text-white px-3 bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:ring-blue-300 font-medium rounded-md text-sm py-1 text-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center;
+}
+
+.btn-red {
+    @apply text-white px-3 bg-red-700 hover:bg-red-800 focus:ring-2 focus:ring-red-300 font-medium rounded-md text-sm py-1 text-center mr-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800 inline-flex items-center;
+}
+
+.btn-blue-small {
+    @apply py-1.5 px-3 text-sm font-medium text-center text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 rounded-md  my-1;
+}
+
+.btn-red-small {
+    @apply py-1.5 px-3 text-sm font-medium text-center text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-red-400  rounded-md  my-1;
+}
+
+.btn-yellow-small {
+    @apply py-1.5 px-3 text-sm font-medium text-center text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:ring-yellow-400 rounded-md my-1;
+}
+
+.btn-amber-small {
+    @apply py-1.5 px-3 text-sm font-medium text-center text-white bg-amber-600 hover:bg-amber-700 focus:ring-4 focus:ring-amber-500 rounded-md my-1;
+}
+
+.btn-gray-small {
+    @apply py-1.5 px-3 text-sm font-medium text-center text-white bg-neutral-600 hover:bg-neutral-700 focus:ring-4 focus:ring-neutral-500 rounded-md my-1;
+}
+
+.btn-gray-xs {
+    @apply py-1 px-3 text-sm font-medium text-center text-white bg-neutral-600 hover:bg-neutral-700 focus:ring-4 focus:ring-neutral-500 rounded-md my-1;
+}
+
+.btn-amber-xs {
+    @apply py-1 px-3 text-sm font-medium text-center text-white bg-amber-600 hover:bg-amber-700 focus:ring-4 focus:ring-amber-500 rounded-md my-1;
+}
+
+.btn-orange-xs {
+    @apply py-1 px-3 text-sm font-medium text-center text-white bg-orange-600 hover:bg-orange-700 focus:ring-4 focus:ring-orange-500 rounded-md my-1;
+}
+
+.btn-red-xs {
+    @apply py-1 px-3 text-sm font-medium text-center text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-500 rounded-md my-1;
+}
+
+.btn-blue-xs {
+    @apply py-1 px-3 text-sm font-medium text-center text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-500 rounded-md my-1;
+}
+
+.btn-purple-xs {
+    @apply py-1 px-3 text-sm font-medium text-center text-white bg-purple-600 hover:bg-purple-700 focus:ring-4 focus:ring-purple-500 rounded-md my-1;
+}
+
+.btn-green-small {
+    @apply py-1.5 px-3 text-sm font-medium text-center text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-500 rounded-md my-1;
+}
+
+.btn-orange-small {
+    @apply py-1.5 px-3 text-sm font-medium text-center text-white bg-orange-600 hover:bg-orange-700 focus:ring-4 focus:ring-orange-500 rounded-md my-1;
+}
+
+.btn-purple-small {
+    @apply py-1.5 px-3 text-sm font-medium text-center text-white bg-purple-600 hover:bg-purple-700 focus:ring-4 focus:ring-purple-500 rounded-md my-1;
+}
+
+.btn-blue-medium {
+    @apply py-2 px-3 font-bold text-center drop-shadow-lg text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-400 rounded-md;
+}
+
+.btn-red-medium {
+    @apply py-2 px-3 font-bold text-center drop-shadow-lg text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-red-400  rounded-md;
+}
+
+.btn-yellow-medium {
+    @apply py-2 px-3 font-bold text-center drop-shadow-lg text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-400 rounded-md;
+}
+
+.btn-green-medium {
+    @apply py-2 px-3 font-bold text-center drop-shadow-lg text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-300 rounded-md;
+}
+
+.btn-neutral-medium {
+    @apply py-2 px-3 font-bold text-center drop-shadow-lg text-white bg-neutral-500 hover:bg-neutral-600 focus:ring-4 focus:ring-neutral-300 rounded-md;
+}
+
+/*! Custom loading spinner */
+
+.cssload-container {
+    width: 25%;
+    height: 24px;
+    text-align: center;
+    margin-top: 5px;
+    vertical-align: middle;
+}
+
+.cssload-speeding-wheel {
+    width: 24px;
+    height: 24px;
+    margin: 0 auto;
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 50%;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    animation: cssload-spin 575ms infinite linear;
+    -o-animation: cssload-spin 575ms infinite linear;
+    -ms-animation: cssload-spin 575ms infinite linear;
+    -webkit-animation: cssload-spin 575ms infinite linear;
+    -moz-animation: cssload-spin 575ms infinite linear;
+}
+
+@keyframes cssload-spin {
+    100% {
+        transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@-o-keyframes cssload-spin {
+    100% {
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@-ms-keyframes cssload-spin {
+    100% {
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes cssload-spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes cssload-spin {
+    100% {
+        -moz-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+/*! End of Custom loading spinner */
+
+/* table style */
+.styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(20, 20, 20, 0.15);
+}
+
+.styled-table thead tr {
+    background-color: #a7a7a7;
+    color: #ffffff;
+    text-align: left;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #686868;
+}
+
+.styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: #686868;
+}
