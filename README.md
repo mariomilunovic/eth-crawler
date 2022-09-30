@@ -1,4 +1,4 @@
-## About Application
+## About
 
 The application downloads transactions from the ethereum network for the selected wallet.
 
@@ -16,7 +16,13 @@ Download time for 100000 transaction is about 10 minutes.
 
 ## Installation
 
-git clone https://github.com/mariomilunovic/eth-crawler.git eth-crawler
+Prerequisites:
+
+-   Docker
+-   Composer
+-   Node.js
+    git
+    git clone https://github.com/mariomilunovic/eth-crawler.git eth-crawler
 
 cd eth-crawler
 
@@ -26,3 +32,8 @@ npm install
 npm run build
 
 sail up -d
+
+sail artisan migrate
+
+Application is on localhost
+phpMyAdmin is on localhost:8001
