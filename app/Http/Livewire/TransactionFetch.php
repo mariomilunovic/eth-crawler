@@ -16,31 +16,30 @@ class TransactionFetch extends Component
         //ini_set('max_execution_time', 300);
 
         $address = $this->wallet->address;
-        $block_step = 100000;
+        $block_range = 100000;
         $startblock = 0;
         $endblock = $this->wallet->get_latest_block();
 
         $block = $startblock;
-        $step = $block_step;
+        $step = $block_range;
 
         $this->wallet->transactions()->delete();
 
+        Log::info('Downloading transactions for address : '.$address);
         while($block <= $endblock)
         {
             $response = [];
-
-            Log::info('Downloading block range : '.$block.' - '.$block+$step);
 
             $response = $this->fetch_range($address,$block,$block+$step);
 
             if($response == -1) // over the api limit
             {
-                $step = (int)($block_step/2); // set smaller block step and try again
+                $step = (int)($step/2); // set smaller block step and try again
             }
             else
             {
                 $block += $step;
-                $step = $block_step; // reset block step
+                $step = $block_range; // reset block step
 
                 foreach($response as $value)
                 {
@@ -83,6 +82,7 @@ class TransactionFetch extends Component
 
             }
         }
+        Log::info('Downloading transactions for finished');
         $this->wallet->synced_at = now();
         $this->wallet->save();
         $this->emit('sync_finished');
@@ -92,8 +92,7 @@ class TransactionFetch extends Component
 
     public function fetch_range($address, $startblock, $endblock) : array|int
     {
-        $this->log = 'fetching block range : '.$startblock.' - '.$endblock;
-
+        Log::info('Downloading block range : '.$startblock.' - '.$endblock);
         $response = Http::get('https://api.etherscan.io/api', [
             'module' => 'account',
             'action' => 'txlist',
@@ -107,11 +106,13 @@ class TransactionFetch extends Component
         ]);
 
         $transactions = json_decode($response)->result;
+        Log::info('Found : '. count($transactions). 'transactions');
 
         if(count($transactions)==10000)
-
-        return -1; // over API limit
-
+        {
+            return -1; // over API limit
+            Log::info('Error : API Limit reached' );
+        }
         else
 
         return $transactions;
