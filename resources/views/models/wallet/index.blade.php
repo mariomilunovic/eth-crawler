@@ -38,7 +38,7 @@
 
 
             </table>
-            
+
 
             {{$wallets->links()}}
 

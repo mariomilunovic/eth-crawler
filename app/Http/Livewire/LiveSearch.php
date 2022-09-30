@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Wallet;
 use Livewire\Component;
+use Illuminate\Http\Request;
 use Livewire\WithPagination;
 
 class LiveSearch extends Component
@@ -18,12 +19,15 @@ class LiveSearch extends Component
     public $startblock="";
     public $endblock="";
     public $total;
+    public $ammount = 10;
     public $message="";
     public $messageClass="";
 
     protected $rules = [
-            'wallet_id' => 'required',
+        'wallet_id' => 'required',
     ];
+
+
 
     public function search()
     {
@@ -43,21 +47,30 @@ class LiveSearch extends Component
             $this->endblock = $this->wallet->get_latest_block();
         }
 
-        $queryResult = $this->wallet->transactions()
-                                ->where('blockNumber','>',$this->startblock)
-                                ->where('blockNumber','<',$this->endblock)->latest()->get();
+        $queryResult = 0;
 
-        if(count($queryResult )>0)
+        $this->total = $this->wallet->transactions()
+        ->where('blockNumber','>',$this->startblock)
+        ->where('blockNumber','<',$this->endblock)->count();
+
+
+        $queryResult = $this->wallet->transactions()
+        ->where('blockNumber','>',$this->startblock)
+        ->where('blockNumber','<',$this->endblock)->latest()->take($this->ammount)->get();
+
+        $this->ammount = 10;
+
+        if($this->total>0)
         {
             $this->messageClass = "btn-green";
             $this->transactions = $queryResult ;
-            $this->message = "Total transaction found : ".count($queryResult );
+            $this->message = 'Showing '.count($queryResult ).' of '.$this->total;
         }
         else
         {
             $this->messageClass = "btn-red";
             $this->transactions = $queryResult ;
-            $this->message = "Total transaction found : ".count($queryResult );
+            $this->message = "No transactions found";
         }
 
     }
@@ -65,6 +78,13 @@ class LiveSearch extends Component
     public function render()
     {
         return view('livewire.live-search');
+    }
+
+
+    public function load()
+    {
+        $this->ammount+=10;
+        $this->search();
     }
 
 }
