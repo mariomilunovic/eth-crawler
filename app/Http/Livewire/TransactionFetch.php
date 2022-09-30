@@ -13,6 +13,8 @@ class TransactionFetch extends Component
 
     public function transaction_fetch()
     {
+        //ini_set('max_execution_time', 300);
+
         $address = $this->wallet->address;
         $block_step = 100000;
         $startblock = 0;
