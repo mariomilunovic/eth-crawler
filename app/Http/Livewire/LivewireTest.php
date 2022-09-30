@@ -9,7 +9,6 @@ class LivewireTest extends Component
     public $count = 0;
 
 
-
     public function increment()
 
     {

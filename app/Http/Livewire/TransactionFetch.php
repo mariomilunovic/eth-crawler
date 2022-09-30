@@ -10,17 +10,11 @@ use Illuminate\Support\Facades\Http;
 class TransactionFetch extends Component
 {
     public $wallet;
-    public $log;
-
-    public function test()
-    {
-        sleep(3);
-    }
 
     public function transaction_fetch()
     {
         $address = $this->wallet->address;
-        $block_step = 1000000;
+        $block_step = 100000;
         $startblock = 0;
         $endblock = $this->wallet->get_latest_block();
 
@@ -32,10 +26,10 @@ class TransactionFetch extends Component
         while($block <= $endblock)
         {
             $response = [];
-            $response = $this->fetch_range($address,$block,$block+$step);
 
-            $this->log = 'downloading block range : '.$block.' - '.$block+$step;
-            Log::info($this->log);
+            Log::info('Downloading block range : '.$block.' - '.$block+$step);
+
+            $response = $this->fetch_range($address,$block,$block+$step);
 
             if($response == -1) // over the api limit
             {
@@ -79,18 +73,18 @@ class TransactionFetch extends Component
                     }
                     catch (\Exception $e)
                     {
-                        dd('db error');
-                        $this->log = 'DB Error';
+                        $this->log = 'Database exception';
                     }
                 }
+
+                Log::info('Transactions found: '.count($response));
 
             }
         }
         $this->wallet->synced_at = now();
         $this->wallet->save();
         $this->emit('sync_finished');
-        Log::info($this->log);
-        //$this->emit('chunk_downloaded',$this->log);
+
     }
 
 

@@ -21,7 +21,7 @@ class TransactionController extends Controller
         //'address' => '0xd1250868E7aB85b0Cd87DbBd98F4e6016dF4693E', 16 transaction in-out
         //'address' => '0x8f54972F4Ca40bD3ffC8b085f6Ece1739C40c65f', another big wallet (good example)
         //'address' => '0x3e91F4071b4C82833D8C5dEbf90c2D9F1CFa8741', 1362 transactions
-        //'address' => '0xDAFEA492D9c6733ae3d56b7Ed1ADB60692c98Bc5', 13000 transactions
+        //'address' => '0xDAFEA492D9c6733ae3d56b7Ed1ADB60692c98Bc5', 15000 transactions
 
         $response = Http::get('https://api.etherscan.io/api', [
             'module' => 'account',

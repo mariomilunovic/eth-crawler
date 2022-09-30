@@ -31,11 +31,13 @@ class LastSync extends Component
     {
         $this->last_sync = $this->get_last_sync();
     }
+    
 
     public function update()
     {
         $this->last_sync = $this->get_last_sync();
     }
+
 
     public function render()
     {

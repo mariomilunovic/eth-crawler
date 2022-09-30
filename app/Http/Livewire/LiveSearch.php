@@ -9,7 +9,6 @@ use Livewire\WithPagination;
 class LiveSearch extends Component
 {
 
-
     use WithPagination;
 
     public $wallets;
@@ -24,7 +23,6 @@ class LiveSearch extends Component
 
     protected $rules = [
             'wallet_id' => 'required',
-
     ];
 
     public function search()
@@ -62,14 +60,11 @@ class LiveSearch extends Component
             $this->message = "Total transaction found : ".count($queryResult );
         }
 
-
-
     }
-
-
 
     public function render()
     {
         return view('livewire.live-search');
     }
+
 }
