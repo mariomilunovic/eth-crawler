@@ -15,3 +15,14 @@ The download process for wallets with a large number of transactions (10000+) ca
 Download time for 100000 transaction is about 10 minutes.
 
 ## Installation
+
+git clone https://github.com/mariomilunovic/eth-crawler.git eth-crawler
+
+cd eth-crawler
+
+composer install
+
+npm install
+npm run build
+
+sail up -d
