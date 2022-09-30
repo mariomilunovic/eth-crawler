@@ -16,7 +16,7 @@ class TransactionFetch extends Component
         //ini_set('max_execution_time', 300);
 
         $address = $this->wallet->address;
-        $block_range = 100000;
+        $block_range = 1000000;
         $startblock = 0;
         $endblock = $this->wallet->get_latest_block();
 
@@ -25,7 +25,7 @@ class TransactionFetch extends Component
 
         $this->wallet->transactions()->delete();
 
-        Log::info('Downloading transactions for address : '.$address);
+        Log::info('#### Downloading transactions for address : '.$address);
         while($block <= $endblock)
         {
             $response = [];
@@ -82,7 +82,7 @@ class TransactionFetch extends Component
 
             }
         }
-        Log::info('Downloading transactions for finished');
+        Log::info('#### Downloading transactions finished');
         $this->wallet->synced_at = now();
         $this->wallet->save();
         $this->emit('sync_finished');
@@ -92,7 +92,7 @@ class TransactionFetch extends Component
 
     public function fetch_range($address, $startblock, $endblock) : array|int
     {
-        Log::info('Downloading block range : '.$startblock.' - '.$endblock);
+        Log::info('Block range : '.$startblock.' - '.$endblock);
         $response = Http::get('https://api.etherscan.io/api', [
             'module' => 'account',
             'action' => 'txlist',
@@ -106,7 +106,6 @@ class TransactionFetch extends Component
         ]);
 
         $transactions = json_decode($response)->result;
-        Log::info('Found : '. count($transactions). 'transactions');
 
         if(count($transactions)==10000)
         {
